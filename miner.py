@@ -36,12 +36,8 @@ def withdraw():
     return c.send_txn(txn, wallet_private_key)
 
 def my_miners():
-    total = dm_contract.functions.getMyMiners(wallet_public_addr).call()
-    return total
-
-def payout_to_compound():
     total = dm_contract.functions.hatcheryMiners(wallet_public_addr).call()
-    return total/1000000000000000000
+    return total
 
 def buildTimer(t):
     mins, secs = divmod(int(t), 60)
@@ -100,7 +96,6 @@ def itterate(nextCycleId, nextCycleType):
     cycleMinimumBnb = findCycleMinimumBnb(nextCycleId)
     secondsUntilCycle = seconds_until_cycle(findCycleEndTimerAt(nextCycleId))
     myMiners = my_miners()
-    payoutToCompound = payout_to_compound()
 
     dateTimeObj = datetime.now()
     timestampStr = dateTimeObj.strftime("[%d-%b-%Y (%H:%M:%S)]")
@@ -111,7 +106,6 @@ def itterate(nextCycleId, nextCycleType):
     print(f"{timestampStr} Next cycle type: {nextCycleType}")
     print(f"{timestampStr} My miners: {myMiners}")
     print(f"{timestampStr} Estimated daily miners: {myMiners*0.08:.3f}")
-    print(f"{timestampStr} Payout available for compound/withdraw: {payoutToCompound:.8f} BNB")
     print(f"{timestampStr} Minimum set for compound/withdraw: {cycleMinimumBnb:.8f} BNB")
     print("******************************")
 
