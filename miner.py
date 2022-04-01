@@ -135,7 +135,7 @@ def itterate(nextCycleId, nextCycleType):
             print(f"{timestampStr} Compounded {payoutToCompound:.8f} BNB to the pool!")
         if nextCycleType == "withdraw":
             print("********** WITHDREW ***********")
-            print(f"{timestampStr} Ate {payoutToCompound:.8f} BNB!")
+            print(f"{timestampStr} Withdrew {payoutToCompound:.8f} BNB!")
 
         calculatedNextCycleId = calcNextCycleId(nextCycleId)
         cmanager.updateNextCycleId(calculatedNextCycleId)
