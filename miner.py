@@ -126,9 +126,11 @@ def itterate(nextCycleId, nextCycleType):
 
     if payoutToCompound >= cycleMinimumBnb:
         if nextCycleType == "compound":
-            compound()
+            #compound()
+            print("did compound")
         if nextCycleType == "withdraw":
-            withdraw()
+            print("did withdraw")
+            #withdraw()
         
         if nextCycleType == "compound":
             print("********** COMPOUNDED *******")
@@ -150,6 +152,18 @@ def itterate(nextCycleId, nextCycleType):
         countdown(60)
 
         return internalNextCycleId, internalNextCycleType
+
+    print("********** IDLE ***********")
+    calculatedNextCycleId = calcNextCycleId(nextCycleId)
+    cmanager.updateNextCycleId(calculatedNextCycleId)
+    internalNextCycleId = cmanager.getNextCycleId()
+    internalNextCycleType = findCycleType(internalNextCycleId)
+    print(f"{timestampStr} Available compund/withdraw did not meet the minimum requirements")
+    print(f"{timestampStr} Moving on to next cycle")
+    print(f"{timestampStr} Next cycleId is: {internalNextCycleId}")
+    print(f"{timestampStr} Next cycle type will be: {internalNextCycleType}")
+    print("**************************")
+    return internalNextCycleId, internalNextCycleType
  
 
 retryCount = 0
