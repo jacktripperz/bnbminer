@@ -46,9 +46,10 @@ $ python -m pip install python-dotenv
 ```py
 >>>from cryptography.fernet import Fernet
 >>>key = Fernet.generate_key()
+>>>key.decode()
 ```
 
-4. Open `.env.example` and replace the key from above with the example one in the file. Save the file without '.example' at the end. Make sure the file type is saved as 'ENV'. 
+4. Open `.env.example` and replace the key with the output from `key.decode()`. Copy in without plingers. Save the file without '.example' at the end. Make sure the file type is saved as 'ENV'. 
 
 5. Go back to the python terminal and do the following:
 ```py
