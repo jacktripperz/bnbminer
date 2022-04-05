@@ -58,7 +58,7 @@ $ python -m pip install python-dotenv
 ```
 
 6. Take the output value from the last line `encMessage.decode()`, create a file called `key.txt` and save the output in the file. 
-7. Save the `key.text` to the root of the project.
+7. Save the `key.txt` to the root of the project.
 
 8. Create a file called `pa.txt`, paste your public wallet address in and save the file to the root of the project.
 9. Copy the file `cycle_config.example.json` and save it as `cycle_config.json`. This file contains the definition of your strategy cycle.  [See the Cycle settings](#cycle-settings) on how to modify your cycle strategy.
