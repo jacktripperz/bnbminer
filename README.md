@@ -105,3 +105,4 @@ Or using my referral code:
 - [Animal Farm, Garden](https://theanimal.farm/referrals/0x361472B5784e83fBF779b015f75ea0722741f304) - 3% per day, high risk, high reward! Get the [auto-script here](https://github.com/jacktripperz/planter)
 - [My DiamondTeam v2](https://mydiamondteam.online/v2/?ref=0x361472b5784e83fbf779b015f75ea0722741f304) - 1.5% per day - low risk, high reward, 5% reinvest bonus! Get the [auto-script here](https://github.com/jacktripperz/diamond_team)
 - [Baked Beans](https://bakedbeans.io?ref=0x361472B5784e83fBF779b015f75ea0722741f304) - 8% per day, high risk, high reward! Get the [auto-script here](https://github.com/jacktripperz/bakedbeans)
+- [Piston](https://piston-token.com/ref/jacktz) - 1% per day - low risk, high reward, no decay! Get the [auto-script here](https://github.com/jacktripperz/piston)
