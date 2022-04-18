@@ -98,9 +98,14 @@ def seconds_until_cycle(endTimerAt):
 # create infinate loop that checks contract every set sleep time
 nextCycleId = cmanager.getNextCycleId()
 nextCycleType = findCycleType(nextCycleId)
-def itterate(nextCycleId, nextCycleType):
+retryCount = 0
+
+def itterate():
+    global nextCycleId
+    global nextCycleType
     cycleMinimumBnb = findCycleMinimumBnb(nextCycleId)
-    secondsUntilCycle = seconds_until_cycle(findCycleEndTimerAt(nextCycleId))
+    nextCycleTime = findCycleEndTimerAt(nextCycleId)
+    secondsUntilCycle = seconds_until_cycle(nextCycleTime)
     myMiners = my_miners()
     payoutToCompound = payout_to_compound()
 
@@ -110,7 +115,9 @@ def itterate(nextCycleId, nextCycleType):
     sleep = loop_sleep_seconds 
     
     print("********** BNB miner *******")
+    print(f"{timestampStr} Next cycle id: {nextCycleId}")
     print(f"{timestampStr} Next cycle type: {nextCycleType}")
+    print(f"{timestampStr} Next cycle time: {nextCycleTime}")
     print(f"{timestampStr} My miners: {myMiners}")
     print(f"{timestampStr} Estimated daily miners: {myMiners*0.08:.3f}")
     print(f"{timestampStr} Payout available for compound/withdraw: {payoutToCompound:.8f} BNB")
@@ -126,11 +133,9 @@ def itterate(nextCycleId, nextCycleType):
 
     if payoutToCompound >= cycleMinimumBnb:
         if nextCycleType == "compound":
-            #compound()
-            print("did compound")
+            compound()
         if nextCycleType == "withdraw":
-            print("did withdraw")
-            #withdraw()
+            withdraw()
         
         if nextCycleType == "compound":
             print("********** COMPOUNDED *******")
@@ -139,44 +144,37 @@ def itterate(nextCycleId, nextCycleType):
             print("********** WITHDREW ***********")
             print(f"{timestampStr} Withdrew {payoutToCompound:.8f} BNB!")
 
-        calculatedNextCycleId = calcNextCycleId(nextCycleId)
-        cmanager.updateNextCycleId(calculatedNextCycleId)
-
-        internalNextCycleId = cmanager.getNextCycleId()
-        internalNextCycleType = findCycleType(internalNextCycleId)
-        print(f"{timestampStr} Next cycleId is: {internalNextCycleId}")
-        print(f"{timestampStr} Next cycle type will be: {internalNextCycleType}")
         print("**************************")
-
         print(f"{timestampStr} Sleeping for 1 min until next cycle starts..")
         countdown(60)
-
-        return internalNextCycleId, internalNextCycleType
 
     print("********** IDLE ***********")
     calculatedNextCycleId = calcNextCycleId(nextCycleId)
     cmanager.updateNextCycleId(calculatedNextCycleId)
-    internalNextCycleId = cmanager.getNextCycleId()
-    internalNextCycleType = findCycleType(internalNextCycleId)
+    nextCycleId = cmanager.getNextCycleId()
+    nextCycleType = findCycleType(nextCycleId)
     print(f"{timestampStr} Available compund/withdraw did not meet the minimum requirements")
     print(f"{timestampStr} Moving on to next cycle")
-    print(f"{timestampStr} Next cycleId is: {internalNextCycleId}")
-    print(f"{timestampStr} Next cycle type will be: {internalNextCycleType}")
+    print(f"{timestampStr} Next cycleId is: {nextCycleId}")
+    print(f"{timestampStr} Next cycle type will be: {nextCycleType}")
     print("**************************")
-    return internalNextCycleId, internalNextCycleType
  
-
-retryCount = 0
-while True:
+def run(): 
+    global retryCount
     try: 
-        if retryCount < 5:
-            result = itterate(nextCycleId, nextCycleType)
-            nextCycleId = result[0]
-            nextCycleType = result[1]
+        itterate()
+        run()
     except Exception as e:
-        print("[EXCEPTION] Something went wrong! Message:")
-        print(f"[EXCEPTION] {e}")
         retryCount = retryCount + 1
+        print("********* EXCEPTION *****************")
+        print("Something went wrong! Message:")
+        print(f"{e}")
         if retryCount < 5:
-            itterate(nextCycleId, nextCycleType)
-        print(f"[EXCEPTION] Retrying! (retryCount: {retryCount})")
+            print(f"[EXCEPTION] Retrying! (retryCount: {retryCount})")
+            print("*************************************")
+            run()
+        else:
+            print("********* TERMINATING *****************")
+            print("Expection occurred 5 times. Terminating!")
+
+run()
