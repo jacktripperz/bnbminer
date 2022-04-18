@@ -11,7 +11,7 @@ loop_sleep_seconds = 2
 start_polling_threshold_in_seconds = 0
 
 # load private key
-wallet_private_key = open('key.txt', "r").readline()
+wallet_private_key = open('key.txt', "r").readline().strip().strip('\'').strip('\"').strip()
 
 # load public address
 wallet_public_addr = open('pa.txt', "r").readline().strip().strip('\'').strip('\"').strip()

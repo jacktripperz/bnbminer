@@ -46,9 +46,10 @@ $ python -m pip install python-dotenv
 ```py
 >>>from cryptography.fernet import Fernet
 >>>key = Fernet.generate_key()
+>>>key.decode()
 ```
 
-4. Open `.env.example` and replace the key from above with the example one in the file. Save the file without '.example' at the end. Make sure the file type is saved as 'ENV'. 
+4. Open `.env.example` and replace the key with the output from `key.decode()`. Copy in without plingers. Save the file without '.example' at the end. Make sure the file type is saved as 'ENV'. 
 
 5. Go back to the python terminal and do the following:
 ```py
@@ -58,7 +59,7 @@ $ python -m pip install python-dotenv
 ```
 
 6. Take the output value from the last line `encMessage.decode()`, create a file called `key.txt` and save the output in the file. 
-7. Save the `key.text` to the root of the project.
+7. Save the `key.txt` to the root of the project.
 
 8. Create a file called `pa.txt`, paste your public wallet address in and save the file to the root of the project.
 9. Copy the file `cycle_config.example.json` and save it as `cycle_config.json`. This file contains the definition of your strategy cycle.  [See the Cycle settings](#cycle-settings) on how to modify your cycle strategy.
@@ -104,3 +105,4 @@ Or using my referral code:
 - [Animal Farm, Garden](https://theanimal.farm/referrals/0x361472B5784e83fBF779b015f75ea0722741f304) - 3% per day, high risk, high reward! Get the [auto-script here](https://github.com/jacktripperz/planter)
 - [My DiamondTeam v2](https://mydiamondteam.online/v2/?ref=0x361472b5784e83fbf779b015f75ea0722741f304) - 1.5% per day - low risk, high reward, 5% reinvest bonus! Get the [auto-script here](https://github.com/jacktripperz/diamond_team)
 - [Baked Beans](https://bakedbeans.io?ref=0x361472B5784e83fBF779b015f75ea0722741f304) - 8% per day, high risk, high reward! Get the [auto-script here](https://github.com/jacktripperz/bakedbeans)
+- [Piston](https://piston-token.com/ref/jacktz) - 1% per day - low risk, high reward, no decay! Get the [auto-script here](https://github.com/jacktripperz/piston)
